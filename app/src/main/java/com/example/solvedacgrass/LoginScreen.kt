@@ -23,5 +23,5 @@ fun LoginScreen(modifier: Modifier, onLoginSuccess: () -> Unit) {
 @Composable
 @Preview
 fun LoginScreenPreview() {
-    LoginScreen(Modifier, {})
+    LoginScreen(Modifier) {}
 }
