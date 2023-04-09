@@ -1,21 +1,29 @@
 package com.example.solvedacgrass.ui.theme
 
+import android.os.Build
 import androidx.compose.foundation.isSystemInDarkTheme
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.darkColors
-import androidx.compose.material.lightColors
+
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 
-private val DarkColorPalette = darkColors(
-    primary = Purple200,
-    primaryVariant = Purple700,
-    secondary = Teal200
+private val DarkColorPalette = darkColorScheme(
+    primary = Red700,
+    onPrimary = Color.White,
+    secondary = Red700,
+    onSecondary = Color.White,
+    error = Red800,
+    background = Color.Black,
 )
 
-private val LightColorPalette = lightColors(
-    primary = Purple500,
-    primaryVariant = Purple700,
-    secondary = Teal200
+private val LightColorPalette = lightColorScheme(
+    primary = Red300,
+    onPrimary = Color.Black,
+    secondary = Red300,
+    onSecondary = Color.Black,
+    error = Red200,
+    background = Color.White
 
     /* Other default colors to override
     background = Color.White,
@@ -32,16 +40,18 @@ fun SolvedacGrassTheme(
     darkTheme: Boolean = isSystemInDarkTheme(),
     content: @Composable () -> Unit
 ) {
-    val colors = if (darkTheme) {
-        DarkColorPalette
-    } else {
-        LightColorPalette
+    val dynamicColor = Build.VERSION.SDK_INT >= Build.VERSION_CODES.S
+    val colorScheme: ColorScheme = when {
+        dynamicColor && darkTheme -> dynamicDarkColorScheme(LocalContext.current)
+        dynamicColor && !darkTheme -> dynamicLightColorScheme(LocalContext.current)
+        darkTheme -> DarkColorPalette
+        else -> LightColorPalette
     }
 
     MaterialTheme(
-        colors = colors,
-        typography = Typography,
+        colorScheme = colorScheme,
         shapes = Shapes,
+        typography = Typography,
         content = content
     )
 }
