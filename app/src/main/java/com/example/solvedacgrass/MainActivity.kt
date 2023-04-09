@@ -3,9 +3,6 @@ package com.example.solvedacgrass
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -21,28 +18,24 @@ class MainActivity : ComponentActivity() {
         setContent {
             val navController = rememberNavController()
 
+            val modifier = Modifier
             NavHost(
                 navController = navController,
                 startDestination = Screen.Splash.route
-            ){
-                composable(Screen.Splash.route) { SplashScreen() }
-                composable(Screen.Login.route) { LoginScreen() }
+            ) {
+                composable(Screen.Splash.route) {
+                    SplashScreen(modifier) {
+                        navController.navigate(Screen.Login.route) {
+                            popUpTo(Screen.Splash.route) {
+                                inclusive = true
+                            }
+                        }
+                    }
+                }
+                composable(Screen.Login.route) { LoginScreen(modifier, {}) }
                 composable(Screen.Grass.route) { GrassScreen() }
                 composable(Screen.Statistics.route) { StatisticsScreen() }
                 composable(Screen.Tip.route) { TipScreen() }
-            }
-
-            SolvedacGrassTheme {
-
-
-
-                // A surface container using the 'background' color from the theme
-                Surface(
-                    modifier = Modifier.fillMaxSize(),
-                    color = MaterialTheme.colors.background
-                ) {
-                    Greeting("Android")
-                }
             }
         }
     }
