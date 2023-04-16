@@ -4,7 +4,6 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 /**
- * 클래스에 대한 간단한 설명이나 참고 url을 남겨주세요.
  * Created by fac.toriall on 2023.04.16..
  *
  * "handle": "lucian0910",
@@ -45,7 +44,7 @@ data class Handle(
     val profileImageUrl: String?,
     val solvedCount: Int,
     val voteCount: Int,
-    val userClass: Int,
+    @SerialName("class") val userClass: Int,
     val classDecoration: String?,
     val rivalCount: Int,
     val reverseRivalCount: Int,

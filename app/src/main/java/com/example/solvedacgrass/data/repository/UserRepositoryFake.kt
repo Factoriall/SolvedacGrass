@@ -4,7 +4,8 @@ import com.example.solvedacgrass.domain.model.Handle
 import com.example.solvedacgrass.domain.repository.UserRepository
 
 /**
- * 클래스에 대한 간단한 설명이나 참고 url을 남겨주세요.
+ * Preview에 사용될 가짜 UserRepository
+ *
  * Created by fac.toriall on 2023.04.16..
  */
 class UserRepositoryFake : UserRepository {

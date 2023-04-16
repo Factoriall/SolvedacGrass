@@ -9,7 +9,8 @@ import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 
 /**
- * 클래스에 대한 간단한 설명이나 참고 url을 남겨주세요.
+ * Hilt 의존성 주입을 위한 모듈 클래스
+ *
  * Created by fac.toriall on 2023.04.16..
  */
 @Module

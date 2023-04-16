@@ -14,10 +14,10 @@ import io.ktor.http.contentType
 import io.ktor.serialization.kotlinx.json.json
 
 /**
- * 클래스에 대한 간단한 설명이나 참고 url을 남겨주세요.
+ * Ktor를 사용한 통신 클래스
+ *
  * Created by fac.toriall on 2023.04.14..
  */
-
 object KtorClient {
     val client = HttpClient(CIO) {
         install(Logging) {
@@ -39,5 +39,5 @@ object KtorClient {
             accept(ContentType.Application.Json)
         }
     }
-    const val url = "https://solved.ac/api/v3"
+    const val url = "https://solved.ac"
 }
