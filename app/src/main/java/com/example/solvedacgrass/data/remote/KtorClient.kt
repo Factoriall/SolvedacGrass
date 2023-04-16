@@ -1,10 +1,17 @@
 package com.example.solvedacgrass.data.remote
 
 import io.ktor.client.HttpClient
-import io.ktor.client.engine.okhttp.OkHttp
-import io.ktor.client.request.get
-import io.ktor.http.Parameters
-import io.ktor.http.isSuccess
+import io.ktor.client.engine.cio.CIO
+import io.ktor.client.plugins.ClientRequestException
+import io.ktor.client.plugins.HttpResponseValidator
+import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
+import io.ktor.client.plugins.defaultRequest
+import io.ktor.client.plugins.logging.LogLevel
+import io.ktor.client.plugins.logging.Logging
+import io.ktor.client.request.accept
+import io.ktor.http.ContentType
+import io.ktor.http.contentType
+import io.ktor.serialization.kotlinx.json.json
 
 /**
  * 클래스에 대한 간단한 설명이나 참고 url을 남겨주세요.
@@ -12,16 +19,25 @@ import io.ktor.http.isSuccess
  */
 
 object KtorClient {
-    private val client = HttpClient(OkHttp)
-
-    suspend fun getUserInfo(username: String, password: String) : Boolean{
-        val params = Parameters.build {
-            append("username", username)
+    val client = HttpClient(CIO) {
+        install(Logging) {
+            level = LogLevel.ALL
         }
-
-        val response = client.get("$url/$username")
-        return response.status.isSuccess()
+        install(ContentNegotiation) {
+            json()
+        }
+        expectSuccess = true
+        HttpResponseValidator {
+            handleResponseExceptionWithRequest { exception, _ ->
+                val clientException = exception as? ClientRequestException
+                    ?: return@handleResponseExceptionWithRequest
+                throw clientException
+            }
+        }
+        defaultRequest {
+            contentType(ContentType.Application.Json)
+            accept(ContentType.Application.Json)
+        }
     }
-
     const val url = "https://solved.ac/api/v3"
 }

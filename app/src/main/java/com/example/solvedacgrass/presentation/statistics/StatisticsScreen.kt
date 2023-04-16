@@ -1,4 +1,4 @@
-package com.example.solvedacgrass
+package com.example.solvedacgrass.presentation.statistics
 
 import androidx.compose.runtime.Composable
 
@@ -7,5 +7,5 @@ import androidx.compose.runtime.Composable
  * Created by fac.toriall on 2023.04.03..
  */
 @Composable
-fun GrassScreen() {
+fun StatisticsScreen() {
 }
